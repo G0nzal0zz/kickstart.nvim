@@ -764,6 +764,8 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- clang-format doesn't format pragmas correctly that's why
+        -- "astyle" is being used as the formatter for C
         c = { 'astyle' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
