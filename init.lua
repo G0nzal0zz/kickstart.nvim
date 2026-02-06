@@ -731,6 +731,20 @@ require('lazy').setup({
         config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
         vim.lsp.config(server_name, config)
       end
+
+      vim.lsp.config('hls', {
+        cmd = { 'haskell-language-server-wrapper', '--lsp' },
+        filetypes = { 'haskell', 'lhaskell' },
+        root_markers = { 'hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml' },
+
+        settings = {
+          haskell = {
+            formattingProvider = 'ormolu',
+            cabalFormattingProvider = 'cabal-fmt',
+          },
+        },
+      })
+      vim.lsp.enable 'hls'
     end,
   },
 
@@ -945,7 +959,23 @@ require('lazy').setup({
     main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'go', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'tsx', 'typescript' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'go',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'tsx',
+        'typescript',
+        'haskell',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
