@@ -446,7 +446,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
+      vim.keymap.set('n', '<leader>ñ', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
@@ -681,7 +681,9 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        -- pyright = {},
+        basedpyright = {},
+        jdtls = {},
+
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -726,7 +728,7 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup { ensure_installed = { 'gopls', 'clangd' } }
+      require('mason-lspconfig').setup { ensure_installed = { 'gopls', 'clangd', 'basedpyright', 'jdtls' } }
       for server_name, config in pairs(servers) do
         config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
         vim.lsp.config(server_name, config)
@@ -782,12 +784,14 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- clang-format doesn't format pragmas correctly that's why
         -- "astyle" is being used as the formatter for C
-        c = { 'astyle' },
+        c = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        java = { 'palantir-java-format' },
       },
     },
   },
@@ -975,6 +979,8 @@ require('lazy').setup({
         'tsx',
         'typescript',
         'haskell',
+        'python',
+        'java',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
