@@ -389,7 +389,7 @@ require('lazy').setup({
         -- },
         pickers = {
           find_files = {
-            hidden = true,
+            hidden = false,
           },
         },
         extensions = {
@@ -628,7 +628,6 @@ require('lazy').setup({
         eslint = {},
         hls = {},
         texlab = {},
-        harper_ls = {}, -- Grammar checker
 
         -- rust_analyzer = {},
         --
@@ -943,6 +942,7 @@ require('lazy').setup({
           'haskell',
           'python',
           'java',
+          'cpp',
         }, require('nvim-treesitter').install(filetypes)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetypes,
